@@ -52,7 +52,3 @@ while op != 3:
         for u in range(len(clientes)):
             if busca == clientes[u]:
                 print('Login como cliente efetuado com sucesso!')
-                print('Texto de teste')
-                print('Texto de teste')
-                print('Texto de teste')
-                print('Texto de teste')
