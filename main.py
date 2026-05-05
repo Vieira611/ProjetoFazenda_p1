@@ -70,9 +70,9 @@ while op != 3:
                                 busca = int(input('Informe o número do animal que você deseja buscar:\n'))
                                 retorno = []
                                 for n in animais:
-                                    if busca == n[0]:
+                                    if busca == int(n[2]):
                                         retorno.append(n)
-                                    print(f'Animal encontrado! {retorno}')
+                                        print(f'Animal encontrado! {retorno}')
 
 
 
