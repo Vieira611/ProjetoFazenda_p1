@@ -49,44 +49,52 @@ while op != 3:
                         op_adm = int(input('Escolha uma das opções mostradas acima:\n'))
 
                         if op_adm == 1:
-                            print('1 - Cadastrar animal')
-                            print('2 - Buscar animal')
-                            print('3 - Atualizar cadastro de animal')
-                            print('4 - Remover animal')
-                            print('5 - <- Voltar.')
-                            op_rebanho = int(input('Escolha uma das opções:\n'))
-                            if op_rebanho != 1 and op_rebanho != 2 and op_rebanho != 3 and op_rebanho != 4 and op_rebanho != 5:
-                                print('A opção que você digitou não existe. Digite uma opção válida!')
-                                continue
+                            op_rebanho = 99
+                            while op_rebanho != 5:
+                                print('1 - Cadastrar animal')
+                                print('2 - Buscar animal')
+                                print('3 - Atualizar status de animal')
+                                print('4 - Remover animal')
+                                print('5 - <- Voltar.')
+                                op_rebanho = int(input('Escolha uma das opções:\n'))
+                                if op_rebanho != 1 and op_rebanho != 2 and op_rebanho != 3 and op_rebanho != 4 and op_rebanho != 5:
+                                    print('A opção que você digitou não existe. Digite uma opção válida!')
+                                    continue
 
-                            if op_rebanho == 1:
-                                tipo_anim = input('Insira o tipo de animal:\n')
-                                status_anim = input('Informe o status do animal:\n')
-                                num_anim += 1
-                                animais.append([tipo_anim, status_anim, num_anim])
-                                print(f'Seu animal foi cadastrado com sucesso! O número dele é {num_anim}')
+                                if op_rebanho == 1:
+                                    tipo_anim = input('Insira o tipo de animal:\n')
+                                    status_anim = input('Informe o status do animal:\n')
+                                    num_anim += 1
+                                    animais.append([tipo_anim, status_anim, num_anim])
+                                    print(f'Seu animal foi cadastrado com sucesso! O número dele é {num_anim}')
 
-                            if op_rebanho == 2:
-                                busca = int(input('Informe o número do animal que você deseja buscar:\n'))
-                                retorno = []
-                                for n in animais:
-                                    if busca == int(n[2]):
-                                        retorno.append(n)
-                                        print(f'Animal encontrado! {retorno}')
-                                    else:
-                                        print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
-                                        continue
+                                if op_rebanho == 2:
+                                    busca = int(input('Informe o número do animal que você deseja buscar:\n'))
+                                    retorno = []
+                                    for n in animais:
+                                        if busca == int(n[2]):
+                                            retorno.append(n)
+                                            print(f'Animal encontrado! {retorno}')
+                                        if busca == int(n[2]):
+                                            print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
 
-                            if op_rebanho == 3:
-                                busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
-                                for n in animais:
-                                    if busca == int(n[2]):
-                                        novo_status = input('Informe o status atualizado do animal:\n')
-                                        n[1] = novo_status
-                                        print('Status do animal atualizado com sucesso!')
-                                    else:
-                                        print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
-                                        continue
+                                if op_rebanho == 3:
+                                    busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
+                                    for n in animais:
+                                        if busca == int(n[2]):
+                                            novo_status = input('Informe o status atualizado do animal:\n')
+                                            n[1] = novo_status
+                                            print('Status do animal atualizado com sucesso!')
+                                        else:
+                                            print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
+                                            continue
+
+                                if op_rebanho == 4:
+                                    busca = int(input('Informe o número do animal que você deseja remover:\n'))
+                                    for n in range(len(animais)):
+                                        if busca == animais[n][2]:
+                                            index = n
+                                            animais.pop(index)
 
                         if op_adm == 3:
                             novo_nome_adm = input("Digite o nome:")
