@@ -32,12 +32,15 @@ while op != 3:
             for u in range(len(admins)):
                 if busca == admins[u]:
                     print('Login como administrador efetuado com sucesso!')
-                    while True:
+                    op_adm = 0
+                    while op_adm != 4:
                         print('----MENU ADM----')
                         print('1 - Gerenciar rebanho')
                         print('2 - Gerenciar produção e derivados')
-                        ma = int(input('Escolha uma das opções mostradas acima:\n'))
-                        if ma == 1:
+                        print('3 - Cadastrar novo administrador.')
+                        print('4 - <- Sair')
+                        op_adm = int(input('Escolha uma das opções mostradas acima:\n'))
+                        if op_adm == 1:
                             print('1 - Cadastrar animal')
                             print('2 - Buscar animal')
                             print('3 - Atualizar cadastro de animal')
@@ -52,11 +55,20 @@ while op != 3:
                                 num = int(input('Insira o número do animal:\n'))
                                 st = input('Informe o status do animal:\n')
 
-                        else:
-                            print("Erro! Tente novamente...")
-                            break
-                else:
-                    print("Erro! Usuário e/ou senha incorretos.")
+
+
+                        if op_adm == 3:
+                            novo_nome_adm = input("Digite o nome:")
+                            nova_senha_adm = input("Digite a senha: ")
+                            if novo_nome_adm in admins:
+                                print("Administrador já existente, tente novamente.")
+                            else:
+                                admins.append([novo_nome_adm, nova_senha_adm])
+                                print("Administrador cadastrado com sucesso!")
+
+                        if op_adm == 4:
+                            print("Saindo...")
+
         if op2 == 2:
             login_cli = input("Usuário:")
             senha_cli = input("Senha:")
