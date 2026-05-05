@@ -1,10 +1,10 @@
-admins = []
+admins = [['f','123'], ['c', '123']]
 clientes = []
 
 op = -99
 while op != 3:
     print('---------MENU---------')
-    print('1 - Cadastrar-se')
+    print('1 - Cadastrar-se como cliente')
     print('2 - Fazer login')
     print('3 - Encerrar programa')
     op = int(input('Digite a opção desejada:\n'))
@@ -60,6 +60,7 @@ while op != 3:
         if op2 == 2:
             login_cli = input("Usuário:")
             senha_cli = input("Senha:")
+            busca = ([login_cli, senha_cli])
             for u in range(len(clientes)):
                 if busca == clientes[u]:
                     print('Login como cliente efetuado com sucesso!')
