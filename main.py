@@ -73,9 +73,20 @@ while op != 3:
                                     if busca == int(n[2]):
                                         retorno.append(n)
                                         print(f'Animal encontrado! {retorno}')
+                                    else:
+                                        print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
+                                        continue
 
-
-
+                            if op_rebanho == 3:
+                                busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
+                                for n in animais:
+                                    if busca == int(n[2]):
+                                        novo_status = input('Informe o status atualizado do animal:\n')
+                                        n[1] = novo_status
+                                        print('Status do animal atualizado com sucesso!')
+                                    else:
+                                        print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
+                                        continue
 
                         if op_adm == 3:
                             novo_nome_adm = input("Digite o nome:")
