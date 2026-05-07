@@ -158,16 +158,26 @@ while op != 3:
                 if busca == clientes[u]:
                     print('Login como cliente efetuado com sucesso!')
                     op_cli = 0
-                    while op != 3:
+                    while op_cli != 3:
                         print("1 - Efetuar compra")
                         print("2 - Agendar Retirada/Transporte")
                         print("3 - <- Sair")
                         op_cli = int(input())
+                        if op_cli == 1:
+                            print("1 - Comprar animais")
+                            print("2 - Comprar produtos")
+                            op_compra = int(input("Informe a opção desejada:\n"))
+                            if op_compra == 1:
+                                busca_venda = 'VENDA'.upper()
+                                for v in animais:
+                                    if busca in v[1]:
+                                        for i in range(len(animais)):
+                                            print(f"TIPO: {animais[i][0]} | STATUS: {animais[i][1]} | ID: {animais[i][2]}")
+
                         if op_cli == 3:
                             print("Saindo...")
 
 
-                        print("1 - ")
                 else:
                     print("Erro! Tente novamente...")
 
