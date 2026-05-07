@@ -121,10 +121,21 @@ while op != 3:
                                         op_produtos = int(input())
                                         if op_produtos == 1:
                                             prod_diaria[1] = float(input("Informe a quantidade de litros ordenhados hoje:"))
+                                        if op_produtos == 2:
+                                            op_produtos2 = 0
+                                            print("1 - Laticínios")
+                                            print("2 - Legumes")
+                                            print("3 - Carnes")
+                                            op_produtos2 = int(input())
+                                            if op_produtos2 == 1:
+                                                op_queijos = 0
+                                                print("1 - Queijos")
+                                                print("2 - Iogurtes")
+                                                op_queijos = int(input())
+
+                                                #-----------------CONTINUAR-----------------
 
 
-
-                                    #---------------CADASTRAR PRODUTO-------------
 
 
                         if op_adm == 3:
