@@ -163,16 +163,26 @@ while op != 3:
                         print("2 - Agendar Retirada/Transporte")
                         print("3 - <- Sair")
                         op_cli = int(input())
-                        if op_cli == 1:
+                        while op_cli == 1:
                             print("1 - Comprar animais")
                             print("2 - Comprar produtos")
                             op_compra = int(input("Informe a opção desejada:\n"))
                             if op_compra == 1:
-                                busca_venda = 'VENDA'.upper()
-                                for v in animais:
-                                    if busca in v[1]:
-                                        for i in range(len(animais)):
-                                            print(f"TIPO: {animais[i][0]} | STATUS: {animais[i][1]} | ID: {animais[i][2]}")
+                                busca_venda = 'VENDA'
+                                print("Animais disponíveis: ")
+                                for v in range(len(animais)):
+                                    if busca_venda == animais[v][1].upper():
+                                        print(f"TIPO: {animais[v][0]} | STATUS: {animais[v][1]} | ID: {animais[v][2]}")
+                            compra = int(input("Digite o número do animal que você deseja comprar:\n"))
+                            busca_compra = compra
+                            for n in range(len(animais)):
+                                if busca_compra == animais[n][2]:
+                                    print("Compra efetuada com sucesso!")
+                                    break
+                                else:
+                                    print("Esse animal não está disponível para venda! Escolha um que esteja disponível!")
+                                    continue
+
 
                         if op_cli == 3:
                             print("Saindo...")
