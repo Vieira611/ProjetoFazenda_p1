@@ -109,7 +109,7 @@ while op != 3:
 
                         if op_adm == 2:
                             op_rebanho2 = 0
-                            while op != 4:
+                            while op_rebanho2 != 4:
                                 print("1 - Cadastrar produção diária.")
                                 print("2 - Estoque")
                                 print("3 - Adicionar produto à venda")
@@ -139,7 +139,7 @@ while op != 3:
                                                 if op_queijos == 1:
                                                     peso_coalho_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                     valor_coalho_quilo = 50
-                                                    produto = ["Queijo coalho", peso_coalho_disponivel]
+                                                    produto = ["Queijo coalho", peso_coalho_disponivel, valor_coalho_quilo]
                                                     estoque.append(produto)
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
@@ -260,15 +260,27 @@ while op != 3:
                                 for v in range(len(animais)):
                                     if busca_venda == animais[v][1].upper():
                                         print(f"TIPO: {animais[v][0]} | STATUS: {animais[v][1]} | ID: {animais[v][2]}")
-                            compra = int(input("Digite o número do animal que você deseja comprar:\n"))
-                            busca_compra = compra
-                            for n in range(len(animais)):
-                                if busca_compra == animais[n][2]:
-                                    print("Compra efetuada com sucesso!")
-                                    break
-                                else:
-                                    print("Esse animal não está disponível para venda! Escolha um que esteja disponível!")
-                                    continue
+                                compra = int(input("Digite o número do animal que você deseja comprar:\n"))
+                                busca_compra = compra
+                                for n in range(len(animais)):
+                                    if busca_compra == animais[n][2]:
+                                        print("Compra efetuada com sucesso!")
+                                        break
+                                    else:
+                                        print("Esse animal não está disponível para venda! Escolha um que esteja disponível!")
+                                        continue
+
+                            if op_compra == 2:
+                                for i in range(len(estoque)):
+                                    print(f"PRODUTO: {produtos_a_venda[i][0]} | KG's DISPONÍVEIS: {produtos_a_venda[i][1]} | PREÇO POR KG: {produtos_a_venda[i][2]}")
+                                op_compra2 = input("Informe qual produto você deseja comprar:\n").upper()
+                                for p in estoque:
+                                    if op_compra2 in produtos_a_venda[0]:
+                                        peso_compra = float(input("Informe a quantidade em KG's que você deseja comprar:\n"))
+                                    else:
+                                        print("Erro! Tente novamente...")
+
+
 
 
                         if op_cli == 3:
