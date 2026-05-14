@@ -1,7 +1,7 @@
 admins = [['f','123'], ['c', '123']]
 clientes = [['BOB', '123']]
 animais = [['BOI', 'VENDA', 1],['PORCO', 'VENDA', 2]]
-estoque = [['quejo coalho', 50]]
+estoque = [['Queijo coalho', 50], ['Carne bovina', 100]]
 prod_diaria = [estoque, 10]
 produtos_a_venda = []
 num_anim = 2
@@ -138,9 +138,21 @@ while op != 3:
                                                 op_queijos = int(input())
                                                 if op_queijos == 1:
                                                     peso_coalho_disponivel = int(input("Quantos quilos irão pro estoque?: "))
-                                                    valor_coalho_quilo = 50
-                                                    produto = ["Queijo coalho", peso_coalho_disponivel, valor_coalho_quilo]
-                                                    estoque.append(produto)
+                                                    valor_coalho_quilo = 32
+                                                    produto = ["Queijo coalho", peso_coalho_disponivel]
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Queijo coalho" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_coalho_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
+
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -148,9 +160,20 @@ while op != 3:
 
                                                 elif op_queijos == 2:
                                                     peso_mussarela_disponivel = int(input("Quantos quilos irão pro estoque?: "))
-                                                    valor_mussarela_quilo = 45
+                                                    valor_mussarela_quilo = 32
                                                     produto = ["Queijo mussarela", peso_mussarela_disponivel]
-                                                    estoque.append(produto)
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Queijo mussarela" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_mussarela_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -158,9 +181,20 @@ while op != 3:
 
                                                 elif op_queijos == 3:
                                                     peso_manteiga_disponivel = int(input("Quantos quilos irão pro estoque?: "))
-                                                    valor_manteiga_quilo = 35
+                                                    valor_manteiga_quilo = 32
                                                     produto = ["Queijo manteiga", peso_manteiga_disponivel]
-                                                    estoque.append(produto)
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Queijo manteiga" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_manteiga_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -174,9 +208,21 @@ while op != 3:
                                                 op_carnes = int(input())
                                                 if op_carnes == 1:
                                                     peso_bovino_disponivel = int(input("Quantos quilos irão pro estoque?: "))
-                                                    valor_bovino_quilo = 58
+                                                    valor_bovino_quilo = 32
                                                     produto = ["Carne bovina", peso_bovino_disponivel]
-                                                    estoque.append(produto)
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Carne bovina" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_bovino_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
+
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -184,9 +230,21 @@ while op != 3:
 
                                                 if op_carnes == 2:
                                                     peso_suino_disponivel = int(input("Quantos quilos irão pro estoque?: "))
-                                                    valor_suino_quilo = 39
-                                                    produto = ["Carne suína", peso_suino_disponivel]
-                                                    estoque.append(produto)
+                                                    valor_suino_quilo = 32
+                                                    produto = ["Carne suina", peso_suino_disponivel]
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Carne suina" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_suino_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
+
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -196,7 +254,18 @@ while op != 3:
                                                     peso_carneiro_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                     valor_carneiro_quilo = 32
                                                     produto = ["Carne carneiro", peso_carneiro_disponivel]
-                                                    estoque.append(produto)
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Carne carneiro" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_carneiro_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -204,9 +273,20 @@ while op != 3:
 
                                                 if op_carnes == 4:
                                                     peso_frango_disponivel = int(input("Quantos quilos irão pro estoque?: "))
-                                                    valor_frango_quilo = 23
+                                                    valor_frango_quilo = 32
                                                     produto = ["Frango", peso_frango_disponivel]
-                                                    estoque.append(produto)
+                                                    achou = False
+                                                    for i in range(len(estoque)):
+                                                        if "Frango" == estoque[i][0]:
+                                                            achou = True
+                                                            indice = i
+                                                            break
+                                                        else:
+                                                            achou = False
+                                                    if achou:
+                                                        estoque[indice][1] += peso_frango_disponivel
+                                                    if not achou:
+                                                        estoque.append(produto)
                                                     escolher_venda = input("Quer colocar o produto à venda?: S/N").upper()
                                                     if escolher_venda == "S":
                                                         produtos_a_venda.append(produto)
@@ -219,10 +299,6 @@ while op != 3:
 
                                         if op_produtos == 4:
                                             break
-
-
-
-
 
 
                         if op_adm == 3:
