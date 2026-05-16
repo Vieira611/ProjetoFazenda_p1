@@ -344,7 +344,7 @@ while op != 3:
 
                                     else:
                                         print("Produto não encontrado.")
-                                            break
+                                        break
 
                         if op_adm == 3:
                             novo_nome_adm = input("Digite o nome:")
