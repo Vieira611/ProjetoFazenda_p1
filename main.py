@@ -359,11 +359,11 @@ while op != 3:
                             print("Saindo...")
 
         if op2 == 2:
-            login_cli = input("Usuário:").lower()
+            login_cli = input("Usuário:")
             senha_cli = input("Senha:")
             busca = ([login_cli, senha_cli])
             for u in range(len(clientes)):
-                if busca == clientes[u]:
+                if busca == clientes[u][0]:
                     print('Login como cliente efetuado com sucesso!')
                     op_cli = 0
                     while op_cli != 3:
@@ -381,11 +381,12 @@ while op != 3:
                                 for v in range(len(animais)):
                                     if busca_venda == animais[v][1].upper():
                                         print(f"TIPO: {animais[v][0]} | STATUS: {animais[v][1]} | ID: {animais[v][2]}")
-                                compra = int(input("Digite o número do animal que você deseja comprar:\n"))
+                                compra = int(input("Digite o ID do animal que você deseja comprar:\n"))
                                 busca_compra = compra
                                 for n in range(len(animais)):
                                     if busca_compra == animais[n][2]:
                                         print("Compra efetuada com sucesso!")
+                                        animais.pop(n)
                                         break
                                     else:
                                         print("Esse animal não está disponível para venda! Escolha um que esteja disponível!")
@@ -398,6 +399,7 @@ while op != 3:
                                 for p in estoque:
                                     if op_compra2 in produtos_a_venda[0]:
                                         peso_compra = float(input("Informe a quantidade em KG's que você deseja comprar:\n"))
+
                                     else:
                                         print("Erro! Tente novamente...")
 
