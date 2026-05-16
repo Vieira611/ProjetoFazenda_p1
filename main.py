@@ -1,5 +1,5 @@
 admins = [['f','123'], ['c', '123']]
-clientes = [['BOB', '123']]
+clientes = [[['BOB', '123'], 0]]
 animais = [['BOI', 'VENDA', 1],['PORCO', 'VENDA', 2]]
 estoque = [['Queijo coalho', 50], ['Carne bovina', 100]]
 prod_diaria = [estoque, 10]
@@ -17,7 +17,7 @@ while op != 3:
 
     if op == 1:
         existe = False
-        usr = input('Digite o nome de usuário que você deseja utilizar:\n')
+        usr = input('Digite o nome de usuário que você deseja utilizar:\n').lower()
         senha = input('Digite sua senha:\n')
         for cliente in clientes:
             if usr == cliente[1]:
@@ -25,8 +25,9 @@ while op != 3:
         if existe:
             print("Erro! Nome de usuário já existente.")
         else:
-            clientes.append([usr,senha])
+            clientes.append([[usr,senha], 0])
             print("Cadastro realizado com sucesso!")
+
 
     if op == 2:
         op2 = 0
@@ -109,11 +110,10 @@ while op != 3:
 
                         if op_adm == 2:
                             op_rebanho2 = 0
-                            while op_rebanho2 != 4:
+                            while op_rebanho2 != 3:
                                 print("1 - Cadastrar produção diária.")
-                                print("2 - Estoque")
-                                print("3 - Adicionar produto à venda")
-                                print("4 - <- Voltar")
+                                print("2 - Adicionar produto à venda")
+                                print("3 - <- Voltar")
                                 op_rebanho2 = int(input())
                                 if op_rebanho2 == 1:
                                     op_produtos = 0
@@ -300,6 +300,51 @@ while op != 3:
                                         if op_produtos == 4:
                                             break
 
+                                if op_rebanho2 == 2:
+                                    for i in range(len(estoque)):
+                                        print(f"PRODUTO: {estoque[i][0]} | KG's DISPONÍVEIS: {estoque[i][1]}")
+
+                                    escolha_venda = input("Digite o nome do produto que quer adicionar a venda: ")
+                                    if escolha_venda == estoque[i][0]:
+                                        print("1 - Vender parte")
+                                        print("2 - Vender tudo")
+                                        op_venda = int(input())
+                                        if op_venda == 2:
+                                            produtos_a_venda.append(estoque[i])
+                                            estoque.pop(i)
+                                            break
+
+                                        if op_venda == 1:
+                                            achou = False
+                                            for i in range(len(produtos_a_venda)):
+                                                if estoque[i][0] == produtos_a_venda[i][0]:
+                                                    achou == True
+                                                    quilos_vendidos = int(input("KG's - "))
+                                                    if quilos_vendidos > estoque[i][1]:
+                                                        print("Erro! Digite uma quantidade válida!")
+                                                        break
+
+                                                    else:
+                                                        estoque[i][1] -= quilos_vendidos
+                                                        produtos_a_venda[i][1] += quilos_vendidos
+
+                                                        if estoque[i][1] == 0:
+                                                            estoque.pop(i)
+
+                                                        else:
+                                                            produtos_a_venda.append(estoque[i])
+
+                                                if not achou:
+                                                    print("Produto não encontrado.")
+                                                    break
+
+
+
+
+
+                                    else:
+                                        print("Produto não encontrado.")
+                                            break
 
                         if op_adm == 3:
                             novo_nome_adm = input("Digite o nome:")
@@ -314,7 +359,7 @@ while op != 3:
                             print("Saindo...")
 
         if op2 == 2:
-            login_cli = input("Usuário:")
+            login_cli = input("Usuário:").lower()
             senha_cli = input("Senha:")
             busca = ([login_cli, senha_cli])
             for u in range(len(clientes)):
@@ -363,7 +408,6 @@ while op != 3:
                             print("Saindo...")
 
 
-                else:
-                    print("Erro! Tente novamente...")
+
 
 
