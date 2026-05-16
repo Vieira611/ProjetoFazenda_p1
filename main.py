@@ -7,6 +7,7 @@ produtos_a_venda = []
 num_anim = 2
 id_prod = 0
 
+
 op = -99
 while op != 3:
     print('---------MENU---------')
@@ -110,10 +111,11 @@ while op != 3:
 
                         if op_adm == 2:
                             op_rebanho2 = 0
-                            while op_rebanho2 != 3:
-                                print("1 - Cadastrar produção diária.")
+                            while op_rebanho2 != 4:
+                                print("1 - Cadastrar produção diária / Estoque.")
                                 print("2 - Adicionar produto à venda")
-                                print("3 - <- Voltar")
+                                print("3 - Listar produtos à venda")
+                                print("4 - <- Voltar")
                                 op_rebanho2 = int(input())
                                 if op_rebanho2 == 1:
                                     op_produtos = 0
@@ -304,47 +306,47 @@ while op != 3:
                                     for i in range(len(estoque)):
                                         print(f"PRODUTO: {estoque[i][0]} | KG's DISPONÍVEIS: {estoque[i][1]}")
 
+
                                     escolha_venda = input("Digite o nome do produto que quer adicionar a venda: ")
-                                    if escolha_venda == estoque[i][0]:
-                                        print("1 - Vender parte")
-                                        print("2 - Vender tudo")
-                                        op_venda = int(input())
-                                        if op_venda == 2:
-                                            produtos_a_venda.append(estoque[i])
-                                            estoque.pop(i)
-                                            break
+                                    for i in range(len(estoque)):
+                                        if escolha_venda == estoque[i][0]:
+                                            indice = i
+                                            print("1 - Vender parte")
+                                            print("2 - Vender tudo")
+                                            op_venda = int(input())
+                                            if op_venda == 2:
+                                                produtos_a_venda.append(estoque[i])
+                                                estoque.pop(i)
+                                                break
 
-                                        if op_venda == 1:
-                                            achou = False
-                                            for i in range(len(produtos_a_venda)):
-                                                if estoque[i][0] == produtos_a_venda[i][0]:
-                                                    achou == True
-                                                    quilos_vendidos = int(input("KG's - "))
-                                                    if quilos_vendidos > estoque[i][1]:
-                                                        print("Erro! Digite uma quantidade válida!")
-                                                        break
-
-                                                    else:
-                                                        estoque[i][1] -= quilos_vendidos
-                                                        produtos_a_venda[i][1] += quilos_vendidos
-
-                                                        if estoque[i][1] == 0:
-                                                            estoque.pop(i)
-
-                                                        else:
-                                                            produtos_a_venda.append(estoque[i])
-
-                                                if not achou:
-                                                    print("Produto não encontrado.")
+                                            if op_venda == 1:
+                                                quilos_vendidos = int(input("KG's - "))
+                                                if quilos_vendidos > estoque[i][1] or quilos_vendidos <= 0:
+                                                    print("Erro! Digite uma quantidade válida!")
                                                     break
 
+                                                else:
+                                                    for i in range(len(produtos_a_venda)):
+                                                        achou = False
+                                                        if escolha_venda == produtos_a_venda[i][0]:
+                                                            achou == True
 
 
+                                                        if achou == True:
+                                                            produtos_a_venda[i][1] += quilos_vendidos
+                                                            estoque[indice][1] -= quilos_vendidos
 
+                                                        if estoque[indice][1] == 0:
+                                                            estoque.pop(indice)
+                                                            break
 
-                                    else:
-                                        print("Produto não encontrado.")
-                                        break
+                                                        if not achou:
+                                                            produtos_a_venda.append([escolha_venda, quilos_vendidos])
+                                                            break
+
+                                if op_rebanho2 == 3:
+                                    for i in range(len(produtos_a_venda)):
+                                        print(f"PRODUTO: {produtos_a_venda[i][0]} | KG's DISPONÍVEIS: {produtos_a_venda[i][1]}")
 
                         if op_adm == 3:
                             novo_nome_adm = input("Digite o nome:")
