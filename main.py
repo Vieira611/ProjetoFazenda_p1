@@ -1,5 +1,3 @@
-from pip._internal.models import installation_report
-
 admins = [['f', '123'], ['c', '123']]
 clientes = [[['BOB', '123'], 0]]
 animais = [['BOI', 'VENDA', 1], ['PORCO', 'VENDA', 2]]
@@ -8,6 +6,7 @@ prod_diaria = [estoque, 10]
 produtos_a_venda = []
 transporte = []
 avaliacao = []
+vendidos = []
 num_anim = 2
 id_prod = 0
 op = -99
@@ -51,17 +50,18 @@ while op != '3':
                     print('Login como administrador efetuado com sucesso!')
                     op_adm = 0
 
-                    while op_adm != '6':
+                    while op_adm != '7':
                         print('----MENU ADM----')
                         print('1 - Gerenciar rebanho')
                         print('2 - Gerenciar produção e derivados')
                         print('3 - Cadastrar novo administrador.')
                         print('4 - Listar Agendamentos de retirada/transporte')
                         print('5 - Listar Produtos avaliados')
-                        print('6 - <- Sair')
+                        print('6 - Ranking de produtos mais vendidos')
+                        print('7 - <- Sair')
                         op_adm = input('Escolha uma das opções mostradas acima:\n')
 
-                        if op_adm != '1' and op_adm != '2' and op_adm != '3' and op_adm != '4' and op_adm != '5' and op_adm != '6':
+                        if op_adm != '1' and op_adm != '2' and op_adm != '3' and op_adm != '4' and op_adm != '5' and op_adm != '6' and op_adm != '7':
                             print('Erro! Tente novamente...')
 
                         if op_adm == '1':
@@ -365,6 +365,20 @@ while op != '3':
                                 print(f"PRODUTO: {avaliacao[av][0]} | NOTA: {avaliacao[av][1]/avaliacao[av][2]} | QTD DE AVALIAÇÕES: {avaliacao[av][2]}")
 
                         if op_adm == '6':
+                            for r in range(len(vendidos)):
+                                for i in range(r + 1, len(vendidos)):
+                                    if vendidos[i][1] > vendidos[r][1]:
+                                        armazenar = vendidos[r]
+                                        vendidos[r] = vendidos[i]
+                                        vendidos[i] = armazenar
+                            print('Produtos mais vendidos')
+                            posicao = 1
+                            for v in vendidos:
+                                print(f"{posicao}° - PRODUTO: {v[0]} | QUANTIDADE DE VENDAS: {v[1]}")
+                                posicao += 1
+                            print('\n')
+
+                        if op_adm == '7':
                             print("Saindo...")
 
         if op2 == '2':
@@ -408,11 +422,18 @@ while op != '3':
                                 op_compra2 = input("Informe qual produto você deseja comprar:\n")
                                 for p in produtos_a_venda:
                                     if op_compra2 in produtos_a_venda[0]:
-                                        peso_compra = float(
-                                            input("Informe a quantidade em KG's que você deseja comprar:\n"))
+                                        peso_compra = float(input("Informe a quantidade em KG's que você deseja comprar:\n"))
                                         print(f'Valor total da compra: R$ {peso_compra * p[2]}')
                                         p[1] -= peso_compra
                                         print('Compra Efetuada com sucesso!\n')
+                                        achou = False
+                                        for v in range(len(vendidos)):
+                                            if op_compra2 == vendidos[v][0]:
+                                                vendidos[v][1] += peso_compra
+                                                achou = True
+                                                break
+                                        if not achou:
+                                            vendidos.append([op_compra2, peso_compra])
 
                                     else:
                                         print("Erro! Tente novamente...")
