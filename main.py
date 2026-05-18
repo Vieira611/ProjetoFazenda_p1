@@ -3,7 +3,7 @@ clientes = [[['BOB', '123'], 0]]
 animais = [['BOI', 'VENDA', 1], ['PORCO', 'VENDA', 2]]
 estoque = [['Queijo coalho', 50, 50.0], ['Carne bovina', 100, 58.0]]
 prod_diaria = [estoque, 10]
-produtos_a_venda = []
+produtos_a_venda = [['Queijo coalho', 10, 50.0]]
 transporte = []
 avaliacao = []
 vendidos = []
@@ -338,7 +338,7 @@ while op != '3':
                                                 else:
                                                     for v in range(len(produtos_a_venda)):
                                                         achou = False
-                                                        if escolha_venda == produtos_a_venda[i][0]:
+                                                        if escolha_venda == produtos_a_venda[v][0]:
                                                             achou = True
 
                                                         if achou:
@@ -350,7 +350,7 @@ while op != '3':
                                                             break
 
                                                         if not achou:
-                                                            produtos_a_venda.append([escolha_venda, quilos_vendidos])
+                                                            produtos_a_venda.append([estoque[i][0], quilos_vendidos])
                                                             break
 
                                 if op_rebanho2 == 3:
