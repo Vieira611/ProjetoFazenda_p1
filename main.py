@@ -1,3 +1,5 @@
+from pip._internal.models import installation_report
+
 admins = [['f', '123'], ['c', '123']]
 clientes = [[['BOB', '123'], 0]]
 animais = [['BOI', 'VENDA', 1], ['PORCO', 'VENDA', 2]]
@@ -16,9 +18,10 @@ while op != '3':
     print('3 - Encerrar programa')
     op = input('Digite a opção desejada:\n')
 
-    if op != int:
-        pass
-    if op == '1':
+    if op != '1' and op != '2' and op != '3':
+        print('Erro! Tente novamente...')
+
+    elif op == '1':
         existe = False
         usr = input('Digite o nome de usuário que você deseja utilizar:\n').lower()
         senha = input('Digite sua senha:\n')
@@ -36,6 +39,9 @@ while op != '3':
         print("2 - Logar como cliente")
         op2 = input("\n ->")
 
+        if op2 != '1' and op2 != '2':
+            print('Erro! Tente novamente...')
+
         if op2 == '1':
             login_adm = input('Digite o seu nome de usuário:\n')
             senha_adm = input('Digite sua senha:\n')
@@ -45,16 +51,20 @@ while op != '3':
                     print('Login como administrador efetuado com sucesso!')
                     op_adm = 0
 
-                    while op_adm != 5:
+                    while op_adm != '6':
                         print('----MENU ADM----')
                         print('1 - Gerenciar rebanho')
                         print('2 - Gerenciar produção e derivados')
                         print('3 - Cadastrar novo administrador.')
-                        print('4 - Listar Produtos avaliados')
-                        print('5 - <- Sair')
-                        op_adm = int(input('Escolha uma das opções mostradas acima:\n'))
+                        print('4 - Listar Agendamentos de retirada/transporte')
+                        print('5 - Listar Produtos avaliados')
+                        print('6 - <- Sair')
+                        op_adm = input('Escolha uma das opções mostradas acima:\n')
 
-                        if op_adm == 1:
+                        if op_adm != '1' and op_adm != '2' and op_adm != '3' and op_adm != '4' and op_adm != '5' and op_adm != '6':
+                            print('Erro! Tente novamente...')
+
+                        if op_adm == '1':
                             op_rebanho = 99
                             while op_rebanho != 6:
                                 print('1 - Cadastrar animal')
@@ -108,7 +118,7 @@ while op != '3':
                                         print(f"TIPO: {animais[i][0]} | STATUS: {animais[i][1]} | ID: {animais[i][2]}")
                                     print("\n")
 
-                        if op_adm == 2:
+                        if op_adm == '2':
                             op_rebanho2 = 0
                             while op_rebanho2 != 4:
                                 print("1 - Cadastrar produção diária / Estoque.")
@@ -337,7 +347,7 @@ while op != '3':
                                         print(
                                             f"PRODUTO: {produtos_a_venda[i][0]} | KG's DISPONÍVEIS: {produtos_a_venda[i][1]}")
 
-                        if op_adm == 3:
+                        if op_adm == '3':
                             novo_nome_adm = input("Digite o nome:")
                             nova_senha_adm = input("Digite a senha: ")
                             if novo_nome_adm in admins:
@@ -346,7 +356,15 @@ while op != '3':
                                 admins.append([novo_nome_adm, nova_senha_adm])
                                 print("Administrador cadastrado com sucesso!")
 
-                        if op_adm == 4:
+                        if op_adm == '4':
+                            for t in range(len(transporte)):
+                                print(f"CLIENTE: {transporte[t][0]} | DIA AGENDADO: {transporte[t][1]}")
+
+                        if op_adm == '5':
+                            for av in range(len(avaliacao)):
+                                print(f"PRODUTO: {avaliacao[av][0]} | NOTA: {avaliacao[av][1]/avaliacao[av][2]} | QTD DE AVALIAÇÕES: {avaliacao[av][2]}")
+
+                        if op_adm == '6':
                             print("Saindo...")
 
         if op2 == '2':
@@ -386,8 +404,7 @@ while op != '3':
 
                             if op_compra == 2:
                                 for i in range(len(estoque)):
-                                    print(
-                                        f"PRODUTO: {produtos_a_venda[i][0]} | KG's DISPONÍVEIS: {produtos_a_venda[i][1]} | PREÇO POR KG: R${produtos_a_venda[i][2]:.2f}")
+                                    print(f"PRODUTO: {produtos_a_venda[i][0]} | KG's DISPONÍVEIS: {produtos_a_venda[i][1]} | PREÇO POR KG: R${produtos_a_venda[i][2]:.2f}")
                                 op_compra2 = input("Informe qual produto você deseja comprar:\n")
                                 for p in produtos_a_venda:
                                     if op_compra2 in produtos_a_venda[0]:
@@ -403,7 +420,6 @@ while op != '3':
                         elif op_cli == 2:
                             data = int(input("Informe o dia que deseja retirar os produtos:\n"))
                             transporte.append([clientes[0][0][0], data])
-                            print(transporte)
                             print("Transporte agendado com sucesso!")
 
                         elif op_cli == 3:
