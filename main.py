@@ -343,7 +343,8 @@ while op != '3':
 
                                                         if achou:
                                                             produtos_a_venda[i][1] += quilos_vendidos
-                                                            estoque[indice][1] -= quilos_vendidos
+
+                                                        estoque[indice][1] -= quilos_vendidos
 
                                                         if estoque[indice][1] == 0:
                                                             estoque.pop(indice)
