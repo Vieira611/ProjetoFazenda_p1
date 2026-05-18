@@ -88,23 +88,29 @@ while op != '3':
                                 if op_rebanho == 2:
                                     busca = int(input('Informe o número do animal que você deseja buscar:\n'))
                                     retorno = []
+                                    achou = False
                                     for n in animais:
                                         if busca == int(n[2]):
+                                            achou == True
                                             retorno.append(n)
                                             print(f'Animal encontrado! {retorno}')
-                                        else:
-                                            print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
+
+                                        if not achou:
+                                            print("Animal não encontrado.")
 
                                 if op_rebanho == 3:
-                                    busca = int(
-                                        input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
+                                    busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
+                                    achou == False
                                     for n in animais:
                                         if busca == int(n[2]):
+                                            achou == True
                                             novo_status = input('Informe o status atualizado do animal:\n')
                                             n[1] = novo_status
                                             print('Status do animal atualizado com sucesso!')
-                                        else:
-                                            print('Erro! Não existe nenhum animal cadastrado com esse número! Tente novamente.')
+
+                                        if not achou:
+                                            print("Animal não encontrado.")
+
 
                                 if op_rebanho == 4:
                                     busca = int(input('Informe o número do animal que você deseja remover:\n'))
@@ -136,6 +142,7 @@ while op != '3':
                                         op_produtos = int(input())
                                         if op_produtos == 1:
                                             prod_diaria[1] = int(input("Informe a quantidade de litros ordenhados hoje:"))
+                                            print("Sua produção foi atualizada!")
                                         if op_produtos == 2:
                                             print("1 - Queijos")
                                             print("2 - Carnes")
@@ -144,12 +151,13 @@ while op != '3':
                                                 print("1 - Queijo coalho | R$50,00/kg")
                                                 print("2 - Queijo mussarela | R$45,00/kg")
                                                 print("3 - Queijo manteiga | R$35,00/kg")
+                                                print("4 - <- Voltar")
                                                 op_queijos = int(input())
                                                 if op_queijos == 1:
                                                     peso_coalho_disponivel = int(
                                                         input("Quantos quilos irão pro estoque?: "))
                                                     valor_coalho_quilo = 32
-                                                    produto = ["Queijo coalho", peso_coalho_disponivel]
+                                                    produto = ["Queijo coalho", peso_coalho_disponivel, valor_coalho_quilo]
                                                     achou = False
                                                     for i in range(len(estoque)):
                                                         if "Queijo coalho" == estoque[i][0]:
@@ -169,7 +177,7 @@ while op != '3':
                                                     peso_mussarela_disponivel = int(
                                                         input("Quantos quilos irão pro estoque?: "))
                                                     valor_mussarela_quilo = 32
-                                                    produto = ["Queijo mussarela", peso_mussarela_disponivel]
+                                                    produto = ["Queijo mussarela", peso_mussarela_disponivel, valor_mussarela_quilo]
                                                     achou = False
                                                     indice = 0
                                                     for i in range(len(estoque)):
@@ -189,7 +197,7 @@ while op != '3':
                                                 elif op_queijos == 3:
                                                     peso_manteiga_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                     valor_manteiga_quilo = 32
-                                                    produto = ["Queijo manteiga", peso_manteiga_disponivel]
+                                                    produto = ["Queijo manteiga", peso_manteiga_disponivel, valor_manteiga_quilo]
                                                     achou = False
 
                                                     for i in range(len(estoque)):
@@ -206,6 +214,9 @@ while op != '3':
                                                             produtos_a_venda.append(produto)
                                                             print("Item adicionado à venda!")
 
+                                                elif op_queijos == 4:
+                                                    break
+
                                             if op_produtos2 == 2:
                                                 print("1 - Carne bovina | R$ 58,00")
                                                 print("2 - Carne suína | R$39,00 ")
@@ -216,7 +227,7 @@ while op != '3':
                                                     peso_bovino_disponivel = int(
                                                         input("Quantos quilos irão pro estoque?: "))
                                                     valor_bovino_quilo = 32
-                                                    produto = ["Carne bovina", peso_bovino_disponivel]
+                                                    produto = ["Carne bovina", peso_bovino_disponivel, valor_bovino_quilo]
                                                     achou = False
                                                     for i in range(len(estoque)):
                                                         if "Carne bovina" == estoque[i][0]:
@@ -238,7 +249,7 @@ while op != '3':
                                                     peso_suino_disponivel = int(
                                                         input("Quantos quilos irão pro estoque?: "))
                                                     valor_suino_quilo = 32
-                                                    produto = ["Carne suina", peso_suino_disponivel]
+                                                    produto = ["Carne suina", peso_suino_disponivel, valor_suino_quilo]
                                                     achou = False
                                                     for i in range(len(estoque)):
                                                         if "Carne suina" == estoque[i][0]:
@@ -259,7 +270,7 @@ while op != '3':
                                                     peso_carneiro_disponivel = int(
                                                         input("Quantos quilos irão pro estoque?: "))
                                                     valor_carneiro_quilo = 32
-                                                    produto = ["Carne carneiro", peso_carneiro_disponivel]
+                                                    produto = ["Carne carneiro", peso_carneiro_disponivel, valor_carneiro_quilo]
                                                     achou = False
                                                     for i in range(len(estoque)):
                                                         if "Carne carneiro" == estoque[i][0]:
@@ -278,7 +289,7 @@ while op != '3':
                                                 if op_carnes == 4:
                                                     peso_frango_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                     valor_frango_quilo = 32
-                                                    produto = ["Frango", peso_frango_disponivel]
+                                                    produto = ["Frango", peso_frango_disponivel, valor_frango_quilo]
                                                     achou = False
                                                     for i in range(len(estoque)):
                                                         if "Frango" == estoque[i][0]:
