@@ -57,15 +57,16 @@ while op != '3':
 
                     if op_adm == '1':
                         op_rebanho = 99
-                        while op_rebanho != 6:
+                        while op_rebanho != 0:
                             print('1 - Cadastrar animal')
                             print('2 - Buscar animal')
-                            print('3 - Atualizar status de animal')
-                            print('4 - Remover animal')
-                            print('5 - Listar animais cadastrados')
-                            print('6 - <- Voltar.')
+                            print('3 - Colocar animal para venda')
+                            print('4 - Atualizar status de animal')
+                            print('5 - Remover animal')
+                            print('6 - Listar animais cadastrados')
+                            print('0 - <- Voltar.')
                             op_rebanho = int(input('Escolha uma das opções:\n'))
-                            if op_rebanho != 1 and op_rebanho != 2 and op_rebanho != 3 and op_rebanho != 4 and op_rebanho != 5 and op_rebanho != 6:
+                            if op_rebanho != 1 and op_rebanho != 2 and op_rebanho != 3 and op_rebanho != 4 and op_rebanho != 5 and op_rebanho != 6 and op_rebanho != 7:
                                 print('A opção que você digitou não existe. Digite uma opção válida!')
                                 continue
 
@@ -86,6 +87,9 @@ while op != '3':
                                         print("Animal não encontrado.")
 
                             if op_rebanho == 3:
+                                _DefAdmin_.venda_animal(animais,animal)
+
+                            if op_rebanho == 4:
                                 busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
                                 achou == False
                                 for n in animais:
@@ -99,14 +103,14 @@ while op != '3':
                                         print("Animal não encontrado.")
 
 
-                            if op_rebanho == 4:
+                            if op_rebanho == 5:
                                 busca = int(input('Informe o número do animal que você deseja remover:\n'))
                                 for n in range(len(animais)):
                                     if busca == animais[n][2]:
                                         index = n
                                         animais.pop(index)
 
-                            if op_rebanho == 5:
+                            if op_rebanho == 6:
                                 for animal in animais:
                                     print(f"TIPO: {animal['tipo']} | STATUS: {animal['status']} | ID: {animal['numero']} | PESO: {animal['peso']}")
                                 print("\n")
