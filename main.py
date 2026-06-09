@@ -1,7 +1,17 @@
 import  _DefMain_, _DefAdmin_
 
-admins = [['f', '123'], ['c', '123']]
-clientes = [[['BOB', '123'], 0]]
+clientes = []
+arquivo_cli = open('admin.cli', 'r')
+linhas_adm = arquivo_cli.readlines()
+for linha in linhas_adm:
+    clientes.append(linha.replace('\n', '').split(','))
+
+admins = []
+arquivo_adm = open('admin.txt', 'r')
+linhas_adm = arquivo_adm.readlines()
+for linha in linhas_adm:
+    admins.append(linha.replace('\n', '').split(','))
+
 animais = []
 estoque = [['Queijo coalho', 50, 50.0], ['Carne bovina', 100, 58.0]]
 prod_leite = [10]
@@ -9,7 +19,7 @@ produtos_a_venda = []
 transporte = []
 avaliacao = []
 vendidos = []
-num_anim = 2
+num_anim = len(animais)
 id_prod = 0
 op = -99
 while op != '3':
@@ -25,7 +35,8 @@ while op != '3':
         if existe:
             print("Erro! Nome de usuário já existente.")
         else:
-            clientes.append([[usr, senha], 0])
+            arquivo_cli.write('\n' + usr + ',' + senha)
+            arquivo_cli.close()
             print("Cadastro realizado com sucesso!")
 
     if op == '2':
@@ -132,7 +143,7 @@ while op != '3':
                                     print("4 - <- Voltar")
                                     op_produtos = int(input())
                                     if op_produtos == 1:
-                                        prod_diaria[1] = int(input("Informe a quantidade de litros ordenhados hoje:"))
+                                        prod_leite = int(input("Informe a quantidade de litros ordenhados hoje:"))
                                         print("Sua produção foi atualizada!")
                                     if op_produtos == 2:
                                         print("1 - Queijos")
@@ -199,7 +210,7 @@ while op != '3':
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
 
                                     if op_produtos == 3:
-                                        print(f"LITROS DE LEITE: {prod_diaria[1]}")
+                                        print(f"LITROS DE LEITE: {prod_leite}")
                                         for i in range(len(estoque)):
                                             print(f"PRODUTO: {estoque[i][0]} | KG's DISPONÍVEIS: {estoque[i][1]}")
 
@@ -258,6 +269,8 @@ while op != '3':
                             print("Administrador já existente, tente novamente.")
                         else:
                             admins.append([novo_nome_adm, nova_senha_adm])
+                            arquivo_adm.write('\n' + novo_nome_adm + ',' + nova_senha_adm)
+                            arquivo_adm.close()
                             print("Administrador cadastrado com sucesso!")
 
                     if op_adm == '4':

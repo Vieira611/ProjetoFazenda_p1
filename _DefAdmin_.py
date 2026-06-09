@@ -1,4 +1,4 @@
-from agrobr import cepea
+from agrobr import *
 
 async def cadastrar_produto(estoque:list, produto:list, produtosvenda:list):
     achou = False
