@@ -1,18 +1,21 @@
 import  _DefMain_, _DefAdmin_
 
 clientes = []
-arquivo_cli = open('admin.cli', 'r')
+arquivo_cli = open('clientes.txt', 'r')
 linhas_adm = arquivo_cli.readlines()
 for linha in linhas_adm:
     clientes.append(linha.replace('\n', '').split(','))
+arquivo_cli.close()
 
 admins = []
 arquivo_adm = open('admin.txt', 'r')
 linhas_adm = arquivo_adm.readlines()
 for linha in linhas_adm:
     admins.append(linha.replace('\n', '').split(','))
+arquivo_adm.close()
 
-animais = []
+animais = [{'numero': '1', 'tipo': 'boi', 'status': 'engorda', 'peso': 500, 'venda': True}]
+animais_a_venda = []
 estoque = [['Queijo coalho', 50, 50.0], ['Carne bovina', 100, 58.0]]
 prod_leite = [10]
 produtos_a_venda = []
@@ -35,6 +38,7 @@ while op != '3':
         if existe:
             print("Erro! Nome de usuário já existente.")
         else:
+            arquivo_cli = open('clientes.txt', 'a')
             arquivo_cli.write('\n' + usr + ',' + senha)
             arquivo_cli.close()
             print("Cadastro realizado com sucesso!")
@@ -98,7 +102,7 @@ while op != '3':
                                         print("Animal não encontrado.")
 
                             if op_rebanho == 3:
-                                _DefAdmin_.venda_animal(animais,animal)
+                                _DefAdmin_.venda_animal(animais, animais_a_venda)
 
                             if op_rebanho == 4:
                                 busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))
@@ -135,6 +139,7 @@ while op != '3':
                             print("4 - <- Voltar")
                             op_rebanho2 = int(input())
                             if op_rebanho2 == 1:
+                                acao = 'cadastro'
                                 op_produtos = 0
                                 while op != 3:
                                     print("1 - Informar litros de leite ordenhados")
@@ -160,19 +165,22 @@ while op != '3':
                                                 valor_coalho_quilo = 32
                                                 produto = ["Queijo coalho", peso_coalho_disponivel, valor_coalho_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_coalho_disponivel)
+
 
                                             elif op_queijos == 2:
-                                                peso_mussarela_disponivel = int(
-                                                    input("Quantos quilos irão pro estoque?: "))
+                                                peso_mussarela_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                 valor_mussarela_quilo = 32
                                                 produto = ["Queijo mussarela", peso_mussarela_disponivel, valor_mussarela_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_mussarela_disponivel)
 
                                             elif op_queijos == 3:
                                                 peso_manteiga_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                 valor_manteiga_quilo = 32
                                                 produto = ["Queijo manteiga", peso_manteiga_disponivel, valor_manteiga_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_manteiga_disponivel)
 
                                             elif op_queijos == 4:
                                                 break
@@ -188,6 +196,7 @@ while op != '3':
                                                 valor_bovino_quilo = 32
                                                 produto = ["Carne bovina", peso_bovino_disponivel, valor_bovino_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_bovino_disponivel)
 
 
                                             if op_carnes == 2:
@@ -196,18 +205,21 @@ while op != '3':
                                                 valor_suino_quilo = 32
                                                 produto = ["Carne suina", peso_suino_disponivel, valor_suino_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_suino_disponivel)
 
                                             if op_carnes == 3:
                                                 peso_carneiro_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                 valor_carneiro_quilo = 32
                                                 produto = ["Carne carneiro", peso_carneiro_disponivel, valor_carneiro_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_carneiro_disponivel)
 
                                             if op_carnes == 4:
                                                 peso_frango_disponivel = int(input("Quantos quilos irão pro estoque?: "))
                                                 valor_frango_quilo = 32
                                                 produto = ["Frango", peso_frango_disponivel, valor_frango_quilo]
                                                 _DefAdmin_.cadastrar_produto(estoque, produto, produtos_a_venda)
+                                                _DefAdmin_.adicionar_historico(acao, produto[0], peso_frango_disponivel)
 
                                     if op_produtos == 3:
                                         print(f"LITROS DE LEITE: {prod_leite}")
@@ -269,6 +281,7 @@ while op != '3':
                             print("Administrador já existente, tente novamente.")
                         else:
                             admins.append([novo_nome_adm, nova_senha_adm])
+                            arquivo_adm = open('admin.txt', 'a')
                             arquivo_adm.write('\n' + novo_nome_adm + ',' + nova_senha_adm)
                             arquivo_adm.close()
                             print("Administrador cadastrado com sucesso!")
@@ -299,8 +312,8 @@ while op != '3':
                         print("Saindo...")
 
         if op2 == '2':
-            _DefMain_.verificar_login(clientes)
-            if True:
+            usuario = _DefMain_.verificar_login(clientes)
+            if True in usuario:
                     print('Login como cliente efetuado com sucesso!')
                     op_cli = 0
                     while op_cli != 4:
@@ -310,21 +323,21 @@ while op != '3':
                         print("4 - <- Sair")
                         op_cli = int(input())
                         if op_cli == 1:
+                            acao = 'compra'
                             print("1 - Comprar animais")
                             print("2 - Comprar produtos")
                             op_compra = int(input("Informe a opção desejada:\n"))
                             if op_compra == 1:
-                                busca_venda = 'VENDA'
                                 print("Animais disponíveis: ")
-                                for v in range(len(animais)):
-                                    if busca_venda == animais[v][1]:
-                                        print(f"TIPO: {animais[v][0]} | STATUS: {animais[v][1]} | ID: {animais[v][2]}")
-                                compra = int(input("Digite o ID do animal que você deseja comprar:\n"))
-                                busca_compra = compra
-                                for n in range(len(animais)):
-                                    if busca_compra == animais[n][2]:
+                                for animal in animais:
+                                    if True == animal['venda']:
+                                        print(f"TIPO: {animal['tipo']} | STATUS: {animal['status']} | ID: {animal['numero']}")
+                                busca_compra = input("Digite o ID do animal que você deseja comprar:\n")
+                                for animal in animais:
+                                    if busca_compra == animal['numero']:
                                         print("Compra efetuada com sucesso!")
-                                        animais.pop(n)
+                                        _DefAdmin_.adicionar_historico(acao, animal['tipo'], usuario[1])
+                                        del animal
                                         break
                                     else:
                                         print("Esse animal não está disponível para venda! Escolha um que esteja disponível!")

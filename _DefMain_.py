@@ -1,5 +1,3 @@
-
-
 def menu():
     print('---------MENU---------')
     print('1 - Cadastrar-se como cliente')
@@ -15,10 +13,11 @@ def verificar_usuario(lista:list, usr):
 
     return  existe
 
+
 def verificar_login(lista:list):
     usuario = input('Digite o seu nome de usuário:\n')
     senha = input('Digite sua senha:\n')
     busca = ([usuario, senha])
     for u in range(len(lista)):
         if busca == lista[u]:
-            return True
+            return [True, usuario]

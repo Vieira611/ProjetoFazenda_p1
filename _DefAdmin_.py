@@ -1,6 +1,9 @@
 from agrobr import *
+from datetime import date
+import string
 
-async def cadastrar_produto(estoque:list, produto:list, produtosvenda:list):
+
+def cadastrar_produto(estoque:list, produto:list, produtosvenda:list):
     achou = False
     for i in range(len(estoque)):
         if produto[1] == estoque[i][0]:
@@ -26,13 +29,31 @@ def cadastrar_animais(animais:list):
     }
     animais.append(animal)
 
+
 def relatorio_geral(animais:list, estoque:list, prod_leite:list):
     print(f'Litros de leite produzidos: {prod_leite}')
     print(f'Produtos diponíveis: {len(estoque)}')
 
-def venda_animal(animais:list):
-    for animal in animais:
-        print(f"TIPO: {animais[animal['tipo']]} | STATUS: {animais[animal['status']]} | ID: {animais[animal['numero']]} | PESO: {animais[animal['peso']]}")
+def venda_animal(animais:list, animais_a_venda:list):
+    for a in range(len(animais)):
+        print(f"TIPO: {animais[a]['tipo']} | STATUS: {animais[a]['status']} | ID: {animais[a]['numero']} | PESO: {animais[a]['peso']}")
     num_anim = int(input('Digite o número do animal que você deseja colocar a venda: '))
-    print(f'O animal {num_anim} está a venda por R$ {animal['peso']*cepea.indicador('boi')}')
+    for animal in animais:
+        if animal['numero'] == num_anim:
+            animal['venda'] == True
+            animais_a_venda.append(animal)
+            print(f'O animal {num_anim} foi vendido por R$ {animal['peso']*cepea.indicador('boi')}')
+
+#(Ex: {'data': '10/06', 'acao': 'venda', 'item': 'Queijo Coalho', 'qtd': 5})
+def adicionar_historico(acao, item, qtdKgs, cliente=None):
+    log = open('log.txt', 'a')
+    if qtdKgs in string.ascii_letters:
+        log.write(f'\ndata:{date.today()} | ação:{acao} | animal: {item} | cliente: {qtdKgs}')
+        log.close()
+    else:
+        log.write(f'\ndata:{date.today()} | ação:{acao} | item: {item} | qtd: {qtdKgs}')
+        log.close()
+
+
+
 

@@ -1,2 +1,4 @@
 BOB,123
 pro,321
+chico,3232
+polex,321
