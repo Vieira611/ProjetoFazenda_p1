@@ -49,15 +49,14 @@ async def venda_animal(animais:list, animais_a_venda:list):
             print(f"O animal {num_anim} foi colocado a venda por R$ {peso_animal * preco_animal:.2f}")
 
 #(Ex: {'data': '10/06', 'acao': 'venda', 'item': 'Queijo Coalho', 'qtd': 5})
-def adicionar_historico(acao, item, qtdKgs, cliente=None):
-    log = open('log.txt', 'a')
-    if qtdKgs in string.ascii_letters:
-        log.write(f'\ndata:{date.today()} | ação:{acao} | animal: {item} | cliente: {qtdKgs}')
-        log.close()
-    else:
+def adicionar_historico(acao, item, qtdKgs=int):
+    if qtdKgs is int:
+        log = open('log.txt', 'a')
         log.write(f'\ndata:{date.today()} | ação:{acao} | item: {item} | qtd: {qtdKgs}')
         log.close()
-
-
+    else:
+        log = open('log.txt', 'a')
+        log.write(f'\ndata:{date.today()} | ação:{acao} | item: {item} | cliente: {qtdKgs}')
+        log.close()
 
 

@@ -57,15 +57,16 @@ while op != '3':
                 print('Login como administrador efetuado com sucesso!')
                 op_adm = 0
 
-                while op_adm != '7':
-                    print('----MENU ADM----')
+                while op_adm != '8':
+                    print('\n----MENU ADM----')
                     print('1 - Gerenciar rebanho')
                     print('2 - Gerenciar produção e derivados')
                     print('3 - Cadastrar novo administrador.')
                     print('4 - Listar Agendamentos de retirada/transporte')
                     print('5 - Listar Produtos avaliados')
                     print('6 - Ranking de produtos mais vendidos')
-                    print('7 - <- Sair')
+                    print('7 - Histórico')
+                    print('8 - <- Sair')
                     op_adm = input('Escolha uma das opções mostradas acima:\n')
 
                     if op_adm != '1' and op_adm != '2' and op_adm != '3' and op_adm != '4' and op_adm != '5' and op_adm != '6' and op_adm != '7':
@@ -310,6 +311,20 @@ while op != '3':
                         print('\n')
 
                     if op_adm == '7':
+                        print("1 - Consultar Histórico")
+                        print("2 - Limpar Histórico")
+                        op_hist = input('\n')
+                        if op_hist == '1':
+                            log = open('log.txt', 'r')
+                            linhas_log = log.readlines()
+                            for linha in linhas_log:
+                                print(linha, end='')
+                        if op_hist == '2':
+                            log = open('log.txt', 'w')
+                            log.write('')
+                            log.close()
+
+                    if op_adm == '8':
                         print("Saindo...")
 
         if op2 == '2':

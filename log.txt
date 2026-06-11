@@ -1,5 +1,0 @@
-data:2026-06-09 | aï¿½ï¿½o:cadastro | item: Queijo coalho | qtd: 123
-data:2026-06-09 | aï¿½ï¿½o:cadastro | item: Queijo coalho | qtd: 123
-data:2026-06-09 | aï¿½ï¿½o:compra | item: boi | qtd: polex
-data:2026-06-09 | ação:compra | item: boi | qtd: chico
-data:2026-06-09 | ação:compra | item: boi | qtd: chico
