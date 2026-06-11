@@ -1,4 +1,4 @@
-import  _DefMain_, _DefAdmin_
+import  _DefMain_, _DefAdmin_, asyncio
 
 clientes = []
 arquivo_cli = open('clientes.txt', 'r')
@@ -14,7 +14,7 @@ for linha in linhas_adm:
     admins.append(linha.replace('\n', '').split(','))
 arquivo_adm.close()
 
-animais = [{'numero': '1', 'tipo': 'boi', 'status': 'engorda', 'peso': 500, 'venda': True}]
+animais = [{'numero': '1', 'tipo': 'boi', 'status': 'engorda', 'peso': 500, 'venda': False}]
 animais_a_venda = []
 estoque = [['Queijo coalho', 50, 50.0], ['Carne bovina', 100, 58.0]]
 prod_leite = [10]
@@ -52,7 +52,8 @@ while op != '3':
             print('Erro! Tente novamente...')
 
         if op2 == '1':
-            if _DefMain_.verificar_login(admins) == True:
+            usuario = _DefMain_.verificar_login(admins)
+            if True in usuario:
                 print('Login como administrador efetuado com sucesso!')
                 op_adm = 0
 
@@ -102,7 +103,7 @@ while op != '3':
                                         print("Animal não encontrado.")
 
                             if op_rebanho == 3:
-                                _DefAdmin_.venda_animal(animais, animais_a_venda)
+                                asyncio.run(_DefAdmin_.venda_animal(animais, animais_a_venda))
 
                             if op_rebanho == 4:
                                 busca = int(input('Informe o número do animal que você deseja atualizar o cadastro:\n'))

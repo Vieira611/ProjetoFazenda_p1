@@ -1,6 +1,7 @@
 from agrobr import *
 from datetime import date
 import string
+import asyncio
 
 
 def cadastrar_produto(estoque:list, produto:list, produtosvenda:list):
@@ -34,15 +35,18 @@ def relatorio_geral(animais:list, estoque:list, prod_leite:list):
     print(f'Litros de leite produzidos: {prod_leite}')
     print(f'Produtos diponíveis: {len(estoque)}')
 
-def venda_animal(animais:list, animais_a_venda:list):
+async def venda_animal(animais:list, animais_a_venda:list):
     for a in range(len(animais)):
         print(f"TIPO: {animais[a]['tipo']} | STATUS: {animais[a]['status']} | ID: {animais[a]['numero']} | PESO: {animais[a]['peso']}")
-    num_anim = int(input('Digite o número do animal que você deseja colocar a venda: '))
+    num_anim = input('Digite o número do animal que você deseja colocar a venda: ')
     for animal in animais:
         if animal['numero'] == num_anim:
-            animal['venda'] == True
+            animal['venda'] = True
+            peso_animal = animal['peso'] / 30
             animais_a_venda.append(animal)
-            print(f'O animal {num_anim} foi vendido por R$ {animal['peso']*cepea.indicador('boi')}')
+            valor_animal = await cepea.indicador("boi")
+            preco_animal = valor_animal["valor"].iloc[-1]
+            print(f"O animal {num_anim} foi colocado a venda por R$ {peso_animal * preco_animal:.2f}")
 
 #(Ex: {'data': '10/06', 'acao': 'venda', 'item': 'Queijo Coalho', 'qtd': 5})
 def adicionar_historico(acao, item, qtdKgs, cliente=None):
