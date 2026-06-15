@@ -83,6 +83,7 @@ while op != '3':
                             print('4 - Atualizar status de animal')
                             print('5 - Remover animal')
                             print('6 - Listar animais cadastrados')
+                            print('7 - Calcular média de peso de animal')
                             print('0 - <- Voltar.')
                             op_rebanho = int(input('Escolha uma das opções:\n'))
                             if op_rebanho != 1 and op_rebanho != 2 and op_rebanho != 3 and op_rebanho != 4 and op_rebanho != 5 and op_rebanho != 6 and op_rebanho != 7:
@@ -133,6 +134,9 @@ while op != '3':
                                 for animal in animais:
                                     print(f"TIPO: {animal['tipo']} | STATUS: {animal['status']} | ID: {animal['numero']} | PESO: {animal['peso']}")
                                 print("\n")
+
+                            if op_rebanho == 7:
+                                _DefAdmin_.calcular_media_tipo(animais)
 
                     if op_adm == '2':
                         op_rebanho2 = 0

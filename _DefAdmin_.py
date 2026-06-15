@@ -52,6 +52,29 @@ async def venda_animal(animais:list, animais_a_venda:list):
             preco_animal = valor_animal["valor"].iloc[-1]
             print(f"O animal {num_anim} foi colocado a venda por R$ {peso_animal * preco_animal:.2f}")
 
+
+def calcular_media_tipo(lista_animais):
+    busca_tipo = input("Digite o tipo de animal que deseja buscar:")
+    soma_peso = 0.0
+    qtd = 0
+    for animal in lista_animais:
+        if animal['tipo'] == busca_tipo:
+            soma_peso += animal['peso']
+            qtd += 1
+    media = soma_peso / qtd
+    print(f"A média do peso do tipo é: {media:.2f}Kg's")
+    for a in range(len(lista_animais)):
+        print(f"TIPO: {lista_animais[a]['tipo']} | STATUS: {lista_animais[a]['status']} | ID: {lista_animais[a]['numero']} | PESO: {lista_animais[a]['peso']}")
+    busca_animal = input("\nDigite o numero do animal que deseja calcular: ")
+    for animal in lista_animais:
+        if animal['numero'] == busca_animal:
+            if animal['peso'] < media:
+                print("O animal está abaixo da média de peso.")
+            elif animal['peso'] > media:
+                print("O animal está acima da media de peso.")
+            else:
+                print("O animal está na média de peso.")
+
 def adicionar_historico(acao, item, variante=int):
     if variante is int:
         log = open('log.txt', 'a')
