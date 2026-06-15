@@ -1,3 +1,5 @@
+from fpdf import FPDF
+
 def menu():
     print('---------MENU---------')
     print('1 - Cadastrar-se como cliente')

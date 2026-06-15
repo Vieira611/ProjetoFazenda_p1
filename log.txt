@@ -1,0 +1,5 @@
+
+data:2026-06-15 | ação:compra | item: boi | cliente: BOB
+data:2026-06-15 | ação:compra | item: boi | cliente: BOB
+data:2026-06-15 | ação:compra | item: boi | cliente: BOB
+data:2026-06-15 | ação:compra | item: boi | cliente: BOB

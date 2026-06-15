@@ -37,18 +37,21 @@ def relatorio_geral(animais:list, estoque:list, prod_leite:list):
 
 async def venda_animal(animais:list, animais_a_venda:list):
     for a in range(len(animais)):
-        print(f"TIPO: {animais[a]['tipo']} | STATUS: {animais[a]['status']} | ID: {animais[a]['numero']} | PESO: {animais[a]['peso']}")
+        if animais[a]['venda'] == False:
+            print(f"TIPO: {animais[a]['tipo']} | STATUS: {animais[a]['status']} | ID: {animais[a]['numero']} | PESO: {animais[a]['peso']}")
     num_anim = input('Digite o número do animal que você deseja colocar a venda: ')
     for animal in animais:
         if animal['numero'] == num_anim:
             animal['venda'] = True
-            peso_animal = animal['peso'] / 30
+            if animal['tipo'] == 'boi':
+                peso_animal = animal['peso'] / 30
+            else:
+                peso_animal = animal['peso']
             animais_a_venda.append(animal)
-            valor_animal = await cepea.indicador("boi")
+            valor_animal = await cepea.indicador(animal['tipo'])
             preco_animal = valor_animal["valor"].iloc[-1]
             print(f"O animal {num_anim} foi colocado a venda por R$ {peso_animal * preco_animal:.2f}")
 
-#(Ex: {'data': '10/06', 'acao': 'venda', 'item': 'Queijo Coalho', 'qtd': 5})
 def adicionar_historico(acao, item, qtdKgs=int):
     if qtdKgs is int:
         log = open('log.txt', 'a')

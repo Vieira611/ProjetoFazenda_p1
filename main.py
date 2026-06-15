@@ -1,4 +1,6 @@
 import  _DefMain_, _DefAdmin_, asyncio
+from fpdf import FPDF
+from agrobr import *
 
 clientes = []
 arquivo_cli = open('clientes.txt', 'r')
@@ -17,7 +19,7 @@ arquivo_adm.close()
 animais = [{'numero': '1', 'tipo': 'boi', 'status': 'engorda', 'peso': 500, 'venda': False}]
 animais_a_venda = []
 estoque = [['Queijo coalho', 50, 50.0], ['Carne bovina', 100, 58.0]]
-prod_leite = [10]
+prod_leite = 10
 produtos_a_venda = []
 transporte = []
 avaliacao = []
@@ -150,7 +152,8 @@ while op != '3':
                                     print("4 - <- Voltar")
                                     op_produtos = int(input())
                                     if op_produtos == 1:
-                                        prod_leite = int(input("Informe a quantidade de litros ordenhados hoje:"))
+                                        leite_prod = int(input("Informe a quantidade de litros ordenhados hoje:"))
+                                        prod_leite += leite_prod
                                         print("Sua produção foi atualizada!")
                                     if op_produtos == 2:
                                         print("1 - Queijos")
@@ -332,6 +335,7 @@ while op != '3':
             if True in usuario:
                     print('Login como cliente efetuado com sucesso!')
                     op_cli = 0
+                    venda = []
                     while op_cli != 4:
                         print("1 - Efetuar compra")
                         print("2 - Agendar Retirada/Transporte")
@@ -342,6 +346,8 @@ while op != '3':
                             acao = 'compra'
                             print("1 - Comprar animais")
                             print("2 - Comprar produtos")
+                            print("3 - Comprar leite")
+                            print("4 - Finalizar compra")
                             op_compra = int(input("Informe a opção desejada:\n"))
                             if op_compra == 1:
                                 print("Animais disponíveis: ")
@@ -353,6 +359,7 @@ while op != '3':
                                     if busca_compra == animal['numero']:
                                         print("Compra efetuada com sucesso!")
                                         _DefAdmin_.adicionar_historico(acao, animal['tipo'], usuario[1])
+                                        venda.append({'produto':animal['tipo'], 'quantidade':1, 'unidade':''})
                                         del animal
                                         break
                                     else:
@@ -368,6 +375,7 @@ while op != '3':
                                         peso_compra = float(input("Informe a quantidade em KG's que você deseja comprar:\n"))
                                         print(f'Valor total da compra: R$ {peso_compra * p[2]}')
                                         p[1] -= peso_compra
+                                        venda.append({"produto":op_compra2, "quantidade":peso_compra, "unidade":"KG's"})
                                         print('Compra Efetuada com sucesso!\n')
                                         achou = False
                                         for v in range(len(vendidos)):
@@ -381,10 +389,35 @@ while op != '3':
                                     else:
                                         print("Erro! Tente novamente...")
 
+                            if op_compra == 3:
+                                print(f"Litros de leite disponíveis a venda: {prod_leite}")
+                                compra_leite = float(input("Informe quantos litros deseja comprar:\n"))
+                                if compra_leite <= prod_leite:
+                                    valor_leite = cepea.indicador('leite')
+                                    preco_leite = valor_leite["valor"].iloc[-1]
+                                    print(f"Compra efetuada com sucesso! Valor total da compra: R${compra_leite * preco_leite}")
+                                    venda.append({'produto':'Leite', 'quantidade':compra_leite, 'unidade': 'L'})
+                                else:
+                                    print("A quantidade digitada não está disponível em estoque.")
+
                         elif op_cli == 2:
-                            data = int(input("Informe o dia que deseja retirar os produtos:\n"))
+                            data = input("Informe a data que deseja retirar os produtos:\n")
                             transporte.append([clientes[0][0][0], data])
                             print("Transporte agendado com sucesso!")
+                            arquivo_cli = open('clientes.txt', 'r')
+                            pdf = FPDF()
+                            pdf.add_page()
+                            pdf.set_font("Helvetica", size=12)
+                            pdf.cell(0, 10, "RECIBO DE COMPRA", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+                            pdf.cell(0, 10, f"Cliente: {clientes[0][0]}", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+                            pdf.cell(0, 10, f"Data de retirada: {data}", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+                            pdf.cell(0, 10, "Itens comprados:", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+                            for item in venda:
+                                    pdf.cell(0, 10, f"{item['produto']}, Quantidade: {item['quantidade']} {item['unidade']}", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+                            pdf.output("recibo.pdf")
+                            print("Recibo gerado com sucesso!")
+                            
+
 
                         elif op_cli == 3:
                             prod_av = input("Informe qual produto você deseja avaliar:\n")
