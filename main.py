@@ -1,5 +1,5 @@
-import  _DefMain_, _DefAdmin_, asyncio
-from fpdf import FPDF
+import  _DefMain_, _DefAdmin_, _DefCli_, asyncio
+from fpdf import FPDF, XPos, YPos
 from agrobr import *
 
 clientes = []
@@ -336,13 +336,12 @@ while op != '3':
                     print('Login como cliente efetuado com sucesso!')
                     op_cli = 0
                     venda = []
-                    while op_cli != 4:
+                    while op_cli != 3:
                         print("1 - Efetuar compra")
                         print("2 - Agendar Retirada/Transporte")
-                        print("3 - Avaliar produtos")
-                        print("4 - <- Sair")
+                        print("3 - <- Sair")
                         op_cli = int(input())
-                        if op_cli == 1:
+                        while op_cli == 1:
                             acao = 'compra'
                             print("1 - Comprar animais")
                             print("2 - Comprar produtos")
@@ -400,7 +399,35 @@ while op != '3':
                                 else:
                                     print("A quantidade digitada não está disponível em estoque.")
 
-                        elif op_cli == 2:
+                            if op_compra == 4:
+                                op_av = input("Deseja avaliar os produtos comprados? S/N\n")
+                                if op_av == "S":
+                                    prod_av = input("Informe qual produto você deseja avaliar:\n")
+                                    for prod in produtos_a_venda:
+                                        if prod_av in prod:
+                                            nota = int(input("Dê uma nota de 0 a 5 para o produto:\n"))
+                                            if nota < 0 or nota > 5:
+                                                print("A nota deve ser de 0 a 5! Tente novamente...")
+                                            else:
+                                                achou = False
+                                                for av in range(len(avaliacao)):
+                                                    if prod_av == avaliacao[av][0]:
+                                                        avaliacao[av][1] += nota
+                                                        avaliacao[av][2] += 1
+                                                        achou = True
+                                                        break
+                                                if not achou:
+                                                    contador = 1
+                                                    avaliacao.append([prod_av, nota, contador])
+                                                print("Obrigado por avaliar!")
+                                            break
+                                        else:
+                                            print("Erro! Tente novamente...")
+                                else:
+                                    print("Obrigado pela preferência!")
+                                    break
+
+                        if op_cli == 2:
                             data = input("Informe a data que deseja retirar os produtos:\n")
                             transporte.append([clientes[0][0][0], data])
                             print("Transporte agendado com sucesso!")
@@ -416,33 +443,8 @@ while op != '3':
                                     pdf.cell(0, 10, f"{item['produto']}, Quantidade: {item['quantidade']} {item['unidade']}", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
                             pdf.output("recibo.pdf")
                             print("Recibo gerado com sucesso!")
-                            
-
 
                         elif op_cli == 3:
-                            prod_av = input("Informe qual produto você deseja avaliar:\n")
-                            for prod in produtos_a_venda:
-                                if prod_av in prod:
-                                    nota = int(input("Dê uma nota de 0 a 5 para o produto:\n"))
-                                    if nota < 0 or nota > 5:
-                                        print("A nota deve ser de 0 a 5! Tente novamente...")
-                                    else:
-                                        achou = False
-                                        for av in range(len(avaliacao)):
-                                            if prod_av == avaliacao[av][0]:
-                                                avaliacao[av][1] += nota
-                                                avaliacao[av][2] += 1
-                                                achou = True
-                                                break
-                                        if not achou:
-                                            contador = 1
-                                            avaliacao.append([prod_av, nota, contador])
-                                        print(avaliacao)
-                                        print("Obrigado por avaliar!")
-                                else:
-                                    print("Erro! Tente novamente...")
-
-                        elif op_cli == 4:
                             print("Saindo...")
 
 print('Saindo...')
