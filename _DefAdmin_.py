@@ -52,14 +52,14 @@ async def venda_animal(animais:list, animais_a_venda:list):
             preco_animal = valor_animal["valor"].iloc[-1]
             print(f"O animal {num_anim} foi colocado a venda por R$ {peso_animal * preco_animal:.2f}")
 
-def adicionar_historico(acao, item, qtdKgs=int):
-    if qtdKgs is int:
+def adicionar_historico(acao, item, variante=int):
+    if variante is int:
         log = open('log.txt', 'a')
-        log.write(f'\ndata:{date.today()} | ação:{acao} | item: {item} | qtd: {qtdKgs}')
+        log.write(f'\ndata:{date.today().strftime('%d/%m/%y')} | ação:{acao} | item: {item} | qtd: {variante}')
         log.close()
     else:
         log = open('log.txt', 'a')
-        log.write(f'\ndata:{date.today()} | ação:{acao} | item: {item} | cliente: {qtdKgs}')
+        log.write(f'\ndata:{date.today().strftime('%d/%m/%y')} | ação:{acao} | item: {item} | cliente: {variante}')
         log.close()
 
 
