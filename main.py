@@ -71,7 +71,7 @@ while op != '3':
                     print('8 - <- Sair')
                     op_adm = input('Escolha uma das opções mostradas acima:\n')
 
-                    if op_adm != '1' and op_adm != '2' and op_adm != '3' and op_adm != '4' and op_adm != '5' and op_adm != '6' and op_adm != '7':
+                    if op_adm != '1' and op_adm != '2' and op_adm != '3' and op_adm != '4' and op_adm != '5' and op_adm != '6' and op_adm != '7' and op_adm != '8':
                         print('Erro! Tente novamente...')
 
                     if op_adm == '1':
@@ -429,6 +429,7 @@ while op != '3':
 
                         if op_cli == 2:
                             data = input("Informe a data que deseja retirar os produtos:\n")
+                            dados = _DefCli_.buscar_cep()
                             transporte.append([clientes[0][0][0], data])
                             print("Transporte agendado com sucesso!")
                             arquivo_cli = open('clientes.txt', 'r')
@@ -441,6 +442,11 @@ while op != '3':
                             pdf.cell(0, 10, "Itens comprados:", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
                             for item in venda:
                                     pdf.cell(0, 10, f"{item['produto']}, Quantidade: {item['quantidade']} {item['unidade']}", new_x=XPos.LMARGIN,new_y=YPos.NEXT)
+                            pdf.cell(0, 10, "ENDEREÇO PARA RETIRADA:", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                            pdf.cell(0, 10, f"Rua:{dados['logradouro']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                            pdf.cell(0, 10, f"Bairro:{dados['bairro']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                            pdf.cell(0, 10, f"Cidade:{dados['cidade']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                            pdf.cell(0, 10, f"Estado:{dados['estado']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                             pdf.output("recibo.pdf")
                             print("Recibo gerado com sucesso!")
 
